@@ -176,4 +176,11 @@
   .shadow-soft {
     box-shadow: var(--shadow-soft);
   }
+  .pdf-export {
+    --shadow-soft: 0 12px 24px -12px rgba(15, 23, 42, 0.18);
+    --shadow-glow: none;
+  }
+  .pdf-export.shadow-soft {
+    box-shadow: 0 12px 24px -12px rgba(15, 23, 42, 0.18);
+  }
 }

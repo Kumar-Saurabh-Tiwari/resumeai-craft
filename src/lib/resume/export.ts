@@ -173,14 +173,19 @@ export async function exportPdf(elementId: string, filename: string) {
   const html2pdf = (await import("html2pdf.js")).default;
   const el = document.getElementById(elementId);
   if (!el) return;
-  await html2pdf()
-    .set({
-      margin: 0,
-      filename: `${filename.replace(/\s+/g, "_")}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-    })
-    .from(el)
-    .save();
+  el.classList.add("pdf-export");
+  try {
+    await html2pdf()
+      .set({
+        margin: 0,
+        filename: `${filename.replace(/\s+/g, "_")}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      })
+      .from(el)
+      .save();
+  } finally {
+    el.classList.remove("pdf-export");
+  }
 }
