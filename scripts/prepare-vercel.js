@@ -47,7 +47,7 @@ fs.writeFileSync(
   JSON.stringify(
     {
       runtime: "nodejs20.x",
-      handler: serverEntry,
+      handler: handlerName,
       launcherType: "Nodejs",
       supportsResponseStreaming: true,
     },
