@@ -50,31 +50,63 @@ export function ExperienceStep() {
   const { resume, patch } = useResumeStore();
   const items = resume.experience;
   const update = (id: string, k: keyof Experience, v: string) =>
-    patch("experience", items.map((it) => (it.id === id ? { ...it, [k]: v } : it)));
+    patch(
+      "experience",
+      items.map((it) => (it.id === id ? { ...it, [k]: v } : it)),
+    );
   const add = () =>
     patch("experience", [
       ...items,
       { id: newId(), company: "", position: "", startDate: "", endDate: "", description: "" },
     ]);
-  const remove = (id: string) => patch("experience", items.filter((it) => it.id !== id));
+  const remove = (id: string) =>
+    patch(
+      "experience",
+      items.filter((it) => it.id !== id),
+    );
 
   return (
     <div className="space-y-4">
       {items.map((it) => (
         <Card key={it.id} onRemove={() => remove(it.id)}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Field label="Position" value={it.position} onChange={(v) => update(it.id, "position", v)} />
-            <Field label="Company" value={it.company} onChange={(v) => update(it.id, "company", v)} />
-            <Field label="Start Date" value={it.startDate} onChange={(v) => update(it.id, "startDate", v)} placeholder="Jan 2023" />
-            <Field label="End Date" value={it.endDate} onChange={(v) => update(it.id, "endDate", v)} placeholder="Present" />
+            <Field
+              label="Position"
+              value={it.position}
+              onChange={(v) => update(it.id, "position", v)}
+            />
+            <Field
+              label="Company"
+              value={it.company}
+              onChange={(v) => update(it.id, "company", v)}
+            />
+            <Field
+              label="Start Date"
+              value={it.startDate}
+              onChange={(v) => update(it.id, "startDate", v)}
+              placeholder="Jan 2023"
+            />
+            <Field
+              label="End Date"
+              value={it.endDate}
+              onChange={(v) => update(it.id, "endDate", v)}
+              placeholder="Present"
+            />
           </div>
           <div className="space-y-1.5 mt-3">
             <Label>Description (one bullet per line)</Label>
-            <Textarea rows={4} value={it.description} onChange={(e) => update(it.id, "description", e.target.value)} />
+            <Textarea
+              rows={4}
+              value={it.description}
+              onChange={(e) => update(it.id, "description", e.target.value)}
+            />
           </div>
         </Card>
       ))}
-      <Button variant="soft" onClick={add}><Plus className="h-4 w-4" />Add Experience</Button>
+      <Button variant="soft" onClick={add}>
+        <Plus className="h-4 w-4" />
+        Add Experience
+      </Button>
     </div>
   );
 }
@@ -83,13 +115,28 @@ export function EducationStep() {
   const { resume, patch } = useResumeStore();
   const items = resume.education;
   const update = (id: string, k: keyof Education, v: string) =>
-    patch("education", items.map((it) => (it.id === id ? { ...it, [k]: v } : it)));
+    patch(
+      "education",
+      items.map((it) => (it.id === id ? { ...it, [k]: v } : it)),
+    );
   const add = () =>
     patch("education", [
       ...items,
-      { id: newId(), degree: "", institution: "", location: "", startDate: "", endDate: "", gpa: "" },
+      {
+        id: newId(),
+        degree: "",
+        institution: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+        gpa: "",
+      },
     ]);
-  const remove = (id: string) => patch("education", items.filter((it) => it.id !== id));
+  const remove = (id: string) =>
+    patch(
+      "education",
+      items.filter((it) => it.id !== id),
+    );
 
   return (
     <div className="space-y-4">
@@ -97,15 +144,34 @@ export function EducationStep() {
         <Card key={it.id} onRemove={() => remove(it.id)}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="Degree" value={it.degree} onChange={(v) => update(it.id, "degree", v)} />
-            <Field label="Institution" value={it.institution} onChange={(v) => update(it.id, "institution", v)} />
-            <Field label="Location" value={it.location} onChange={(v) => update(it.id, "location", v)} />
+            <Field
+              label="Institution"
+              value={it.institution}
+              onChange={(v) => update(it.id, "institution", v)}
+            />
+            <Field
+              label="Location"
+              value={it.location}
+              onChange={(v) => update(it.id, "location", v)}
+            />
             <Field label="GPA" value={it.gpa} onChange={(v) => update(it.id, "gpa", v)} />
-            <Field label="Start Date" value={it.startDate} onChange={(v) => update(it.id, "startDate", v)} />
-            <Field label="End Date" value={it.endDate} onChange={(v) => update(it.id, "endDate", v)} />
+            <Field
+              label="Start Date"
+              value={it.startDate}
+              onChange={(v) => update(it.id, "startDate", v)}
+            />
+            <Field
+              label="End Date"
+              value={it.endDate}
+              onChange={(v) => update(it.id, "endDate", v)}
+            />
           </div>
         </Card>
       ))}
-      <Button variant="soft" onClick={add}><Plus className="h-4 w-4" />Add Education</Button>
+      <Button variant="soft" onClick={add}>
+        <Plus className="h-4 w-4" />
+        Add Education
+      </Button>
     </div>
   );
 }
@@ -164,7 +230,9 @@ function SkillEditor({
           }}
           placeholder="Type and press Enter"
         />
-        <Button type="button" variant="soft" onClick={addTag}>Add</Button>
+        <Button type="button" variant="soft" onClick={addTag}>
+          Add
+        </Button>
       </div>
       <div className="flex flex-wrap gap-1.5">
         {values.map((v, i) => (
@@ -186,31 +254,62 @@ export function ProjectsStep() {
   const { resume, patch } = useResumeStore();
   const items = resume.projects;
   const update = (id: string, k: keyof Project, v: string) =>
-    patch("projects", items.map((it) => (it.id === id ? { ...it, [k]: v } : it)));
+    patch(
+      "projects",
+      items.map((it) => (it.id === id ? { ...it, [k]: v } : it)),
+    );
   const add = () =>
     patch("projects", [
       ...items,
       { id: newId(), name: "", description: "", technologies: "", github: "", liveUrl: "" },
     ]);
-  const remove = (id: string) => patch("projects", items.filter((it) => it.id !== id));
+  const remove = (id: string) =>
+    patch(
+      "projects",
+      items.filter((it) => it.id !== id),
+    );
 
   return (
     <div className="space-y-4">
       {items.map((it) => (
         <Card key={it.id} onRemove={() => remove(it.id)}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Field label="Project Name" value={it.name} onChange={(v) => update(it.id, "name", v)} />
-            <Field label="Technologies" value={it.technologies} onChange={(v) => update(it.id, "technologies", v)} placeholder="React, Node, Postgres" />
-            <Field label="GitHub URL" value={it.github} onChange={(v) => update(it.id, "github", v)} />
-            <Field label="Live URL" value={it.liveUrl} onChange={(v) => update(it.id, "liveUrl", v)} />
+            <Field
+              label="Project Name"
+              value={it.name}
+              onChange={(v) => update(it.id, "name", v)}
+            />
+            <Field
+              label="Technologies"
+              value={it.technologies}
+              onChange={(v) => update(it.id, "technologies", v)}
+              placeholder="React, Node, Postgres"
+            />
+            <Field
+              label="GitHub URL"
+              value={it.github}
+              onChange={(v) => update(it.id, "github", v)}
+            />
+            <Field
+              label="Live URL"
+              value={it.liveUrl}
+              onChange={(v) => update(it.id, "liveUrl", v)}
+            />
           </div>
           <div className="space-y-1.5 mt-3">
             <Label>Description</Label>
-            <Textarea rows={3} value={it.description} onChange={(e) => update(it.id, "description", e.target.value)} />
+            <Textarea
+              rows={3}
+              value={it.description}
+              onChange={(e) => update(it.id, "description", e.target.value)}
+            />
           </div>
         </Card>
       ))}
-      <Button variant="soft" onClick={add}><Plus className="h-4 w-4" />Add Project</Button>
+      <Button variant="soft" onClick={add}>
+        <Plus className="h-4 w-4" />
+        Add Project
+      </Button>
     </div>
   );
 }

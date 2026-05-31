@@ -1,5 +1,5 @@
-const fs = require('fs');
-const content = fs.readFileSync('src/routes/builder.tsx', 'utf8');
+const fs = require("fs");
+const content = fs.readFileSync("src/routes/builder.tsx", "utf8");
 
 const regex = /\/\*\s*LivePreview\s*\*\/[\s\S]*/m;
 
@@ -36,4 +36,4 @@ const replacement = `{/* Live Preview */}
 }
 `;
 
-fs.writeFileSync('src/routes/builder.tsx', content.replace(regex2, replacement));
+fs.writeFileSync("src/routes/builder.tsx", content.replace(regex2, replacement));

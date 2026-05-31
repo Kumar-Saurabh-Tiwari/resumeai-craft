@@ -110,11 +110,16 @@ export function AiAnalyzeButton() {
                   <div className="space-y-3">
                     {result.improvedExperience.map((e, i) => (
                       <div key={i}>
-                        <div className="text-xs font-semibold text-muted-foreground">{e.position}</div>
+                        <div className="text-xs font-semibold text-muted-foreground">
+                          {e.position}
+                        </div>
                         <ul className="list-disc pl-5 text-sm mt-1 space-y-0.5">
-                          {e.description.split("\n").filter(Boolean).map((line, j) => (
-                            <li key={j}>{line.replace(/^[-•]\s*/, "")}</li>
-                          ))}
+                          {e.description
+                            .split("\n")
+                            .filter(Boolean)
+                            .map((line, j) => (
+                              <li key={j}>{line.replace(/^[-•]\s*/, "")}</li>
+                            ))}
                         </ul>
                       </div>
                     ))}
@@ -137,17 +142,21 @@ export function AiAnalyzeButton() {
               {result.suggestions?.length > 0 && (
                 <Block title="Optimization Suggestions">
                   <ul className="list-disc pl-5 text-sm space-y-1">
-                    {result.suggestions.map((s, i) => <li key={i}>{s}</li>)}
+                    {result.suggestions.map((s, i) => (
+                      <li key={i}>{s}</li>
+                    ))}
                   </ul>
                 </Block>
               )}
 
               <div className="flex justify-end gap-2 pt-2">
                 <Button variant="outline" onClick={() => setOpen(false)}>
-                  <X className="h-4 w-4" />Reject
+                  <X className="h-4 w-4" />
+                  Reject
                 </Button>
                 <Button variant="hero" onClick={accept}>
-                  <Check className="h-4 w-4" />Accept Changes
+                  <Check className="h-4 w-4" />
+                  Accept Changes
                 </Button>
               </div>
             </div>
@@ -170,7 +179,10 @@ function Tags({ items }: { items: string[] }) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {items.map((t, i) => (
-        <span key={i} className="rounded-full bg-accent px-2.5 py-0.5 text-xs text-accent-foreground">
+        <span
+          key={i}
+          className="rounded-full bg-accent px-2.5 py-0.5 text-xs text-accent-foreground"
+        >
           {t}
         </span>
       ))}

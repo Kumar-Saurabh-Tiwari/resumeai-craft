@@ -193,7 +193,9 @@ function BuilderPage() {
                     Updates instantly as you edit.
                   </p>
                 </div>
-                <span className="text-xs text-muted-foreground font-mono bg-muted/50 px-2 py-1 rounded-md border border-border/50">8.5" × 11"</span>
+                <span className="text-xs text-muted-foreground font-mono bg-muted/50 px-2 py-1 rounded-md border border-border/50">
+                  8.5" × 11"
+                </span>
               </div>
               <div className="flex-1 overflow-auto bg-[#F8F9FA] dark:bg-black/20 p-4 sm:p-6 flex justify-center relative scrollbar-hide">
                 <div className="origin-top scale-[0.45] sm:scale-[0.7] lg:scale-[0.6] xl:scale-[0.75] transition-transform flex-shrink-0">

@@ -127,9 +127,18 @@ const TESTIMONIALS = [
 
 const FAQ = [
   { q: "Is it really free?", a: "Yes — the free plan covers 3 resumes per month with PDF export." },
-  { q: "Will my resume pass ATS scanners?", a: "All templates are ATS-friendly and our AI flags missing keywords for your target role." },
-  { q: "Can I edit my resume in Word?", a: "Yes. Export as DOCX and open in Word, Google Docs, or Pages." },
-  { q: "Do you store my data?", a: "Your resume stays in your browser. Nothing is uploaded unless you run AI analyze." },
+  {
+    q: "Will my resume pass ATS scanners?",
+    a: "All templates are ATS-friendly and our AI flags missing keywords for your target role.",
+  },
+  {
+    q: "Can I edit my resume in Word?",
+    a: "Yes. Export as DOCX and open in Word, Google Docs, or Pages.",
+  },
+  {
+    q: "Do you store my data?",
+    a: "Your resume stays in your browser. Nothing is uploaded unless you run AI analyze.",
+  },
 ];
 
 function Landing() {
@@ -145,14 +154,23 @@ function Landing() {
             ResumeAI <span className="text-gradient-brand">Pro</span>
           </Link>
           <nav className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-            <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
-            <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+            <a href="#features" className="hover:text-foreground transition-colors">
+              Features
+            </a>
+            <a href="#how" className="hover:text-foreground transition-colors">
+              How it works
+            </a>
+            <a href="#pricing" className="hover:text-foreground transition-colors">
+              Pricing
+            </a>
+            <a href="#faq" className="hover:text-foreground transition-colors">
+              FAQ
+            </a>
           </nav>
           <Link to="/builder">
             <Button variant="hero" size="sm">
-              <Sparkles className="h-4 w-4" />Build Resume
+              <Sparkles className="h-4 w-4" />
+              Build Resume
             </Button>
           </Link>
         </div>
@@ -170,7 +188,8 @@ function Landing() {
               <Sparkles className="h-3 w-3 text-primary" /> AI-powered • ATS-optimized • 2026 ready
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-              Build a <span className="text-gradient-brand">job-winning resume</span> in minutes with AI
+              Build a <span className="text-gradient-brand">job-winning resume</span> in minutes
+              with AI
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-xl">
               Create, optimize, and download professional resumes with AI-powered market analysis.
@@ -275,11 +294,7 @@ function Landing() {
 
       {/* Testimonials */}
       <section className="container mx-auto px-4 py-20">
-        <SectionHeader
-          eyebrow="Loved by jobseekers"
-          title="Hired in days, not months"
-          sub=""
-        />
+        <SectionHeader eyebrow="Loved by jobseekers" title="Hired in days, not months" sub="" />
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
           {TESTIMONIALS.map((t) => (
             <div key={t.name} className="rounded-xl border border-border bg-card p-5 shadow-soft">
@@ -381,7 +396,9 @@ function Stat({ n, l }: { n: string; l: string }) {
 function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <div className="text-center max-w-2xl mx-auto">
-      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</div>
+      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+        {eyebrow}
+      </div>
       <h2 className="text-3xl sm:text-4xl font-bold mt-2 tracking-tight">{title}</h2>
       {sub && <p className="mt-3 text-muted-foreground">{sub}</p>}
     </div>

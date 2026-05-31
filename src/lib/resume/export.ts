@@ -1,11 +1,4 @@
-import {
-  Document,
-  Packer,
-  Paragraph,
-  TextRun,
-  HeadingLevel,
-  AlignmentType,
-} from "docx";
+import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from "docx";
 import FileSaver from "file-saver";
 const { saveAs } = FileSaver;
 import type { ResumeData } from "../resume/types";
@@ -66,9 +59,7 @@ export async function exportDocx(r: ResumeData) {
     r.experience.forEach((e) => {
       children.push(
         new Paragraph({
-          children: [
-            new TextRun({ text: `${e.position} — ${e.company}`, bold: true, size: 24 }),
-          ],
+          children: [new TextRun({ text: `${e.position} — ${e.company}`, bold: true, size: 24 })],
         }),
         new Paragraph({
           children: [
@@ -141,7 +132,12 @@ export async function exportDocx(r: ResumeData) {
         p(pr.description),
         new Paragraph({
           children: [
-            new TextRun({ text: `Tech: ${pr.technologies}`, italics: true, color: "6B7280", size: 20 }),
+            new TextRun({
+              text: `Tech: ${pr.technologies}`,
+              italics: true,
+              color: "6B7280",
+              size: 20,
+            }),
           ],
         }),
       );
@@ -170,10 +166,42 @@ export async function exportDocx(r: ResumeData) {
 }
 
 export async function exportPdf(elementId: string, filename: string) {
-  const html2pdf = (await import("html2pdf.js")).default;
+  const html2pdfModule = await import("html2pdf.js");
+  const html2pdf = html2pdfModule.default || html2pdfModule;
   const el = document.getElementById(elementId);
   if (!el) return;
   el.classList.add("pdf-export");
+
+  // Monkey-patch getComputedStyle to hide oklch colors from html2canvas
+  const originalGetComputedStyle = window.getComputedStyle;
+  window.getComputedStyle = function (element, pseudoElt) {
+    const style = originalGetComputedStyle(element, pseudoElt);
+    return new Proxy(style, {
+      get(target, prop) {
+        const val = target[prop as keyof CSSStyleDeclaration];
+        if (typeof val === "function" && prop === "getPropertyValue") {
+          return function (this: any, ...args: any[]) {
+            const res = (val as any).apply(target, args);
+            if (typeof res === "string" && res.includes("oklch")) {
+              if (args[0] === "background-color") return "rgba(255, 255, 255, 0)";
+              if (args[0].includes("border")) return "rgba(0, 0, 0, 0)";
+              return "rgb(0, 0, 0)";
+            }
+            return res;
+          };
+        }
+        if (typeof val === "string" && val.includes("oklch")) {
+          if (prop === "backgroundColor" || prop === "background-color")
+            return "rgba(255, 255, 255, 0)";
+          if (typeof prop === "string" && prop.toLowerCase().includes("border"))
+            return "rgba(0, 0, 0, 0)";
+          return "rgb(0, 0, 0)";
+        }
+        return typeof val === "function" ? val.bind(target) : val;
+      },
+    });
+  };
+
   try {
     await html2pdf()
       .set({
@@ -186,6 +214,7 @@ export async function exportPdf(elementId: string, filename: string) {
       .from(el)
       .save();
   } finally {
+    window.getComputedStyle = originalGetComputedStyle;
     el.classList.remove("pdf-export");
   }
 }

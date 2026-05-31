@@ -14,8 +14,7 @@ export const useResumeStore = create<State>()(
     (set) => ({
       resume: emptyResume,
       setResume: (resume) => set({ resume }),
-      patch: (key, value) =>
-        set((s) => ({ resume: { ...s.resume, [key]: value } })),
+      patch: (key, value) => set((s) => ({ resume: { ...s.resume, [key]: value } })),
       reset: () => set({ resume: emptyResume }),
     }),
     { name: "resumeai-pro" },
