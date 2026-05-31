@@ -10,8 +10,7 @@ import { saveAs } from "file-saver";
 import type { ResumeData } from "../resume/types";
 
 export async function exportDocx(r: ResumeData) {
-  const p = (text: string, opts: Partial<ConstructorParameters<typeof TextRun>[0]> = {}) =>
-    new Paragraph({ children: [new TextRun({ text, ...opts })] });
+  const p = (text: string) => new Paragraph({ children: [new TextRun({ text })] });
 
   const sectionTitle = (text: string) =>
     new Paragraph({
