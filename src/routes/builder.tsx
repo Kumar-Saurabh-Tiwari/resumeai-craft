@@ -183,9 +183,20 @@ function BuilderPage() {
 
           {/* Live Preview */}
           <div className="lg:sticky lg:top-20 lg:self-start">
-            <div className="rounded-2xl border border-border bg-muted/40 p-4 overflow-auto max-h-[calc(100vh-7rem)]">
-              <div className="origin-top scale-[0.62] sm:scale-75 lg:scale-[0.68] xl:scale-[0.82] transition-transform">
-                <ResumePreview data={resume} />
+            <div className="rounded-2xl border border-border bg-card/70 p-4 sm:p-5 shadow-soft">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <p className="text-sm font-semibold">Live Preview</p>
+                  <p className="text-xs text-muted-foreground">
+                    Updates instantly as you edit your resume.
+                  </p>
+                </div>
+                <span className="text-xs text-muted-foreground">Letter • 8.5 × 11</span>
+              </div>
+              <div className="rounded-xl border border-border bg-muted/40 p-4 overflow-auto max-h-[calc(100vh-10rem)]">
+                <div className="origin-top scale-[0.62] sm:scale-75 lg:scale-[0.68] xl:scale-[0.82] transition-transform">
+                  <ResumePreview data={resume} />
+                </div>
               </div>
             </div>
           </div>

@@ -29,10 +29,11 @@ export const analyzeResume = createServerFn({ method: "POST" })
     resume: ResumeSchema.parse(data.resume),
   }))
   .handler(async ({ data }) => {
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env.GROQ_API_KEY;
+    const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
     if (!apiKey) {
       return {
-        error: "AI is not configured. Add LOVABLE_API_KEY to enable analysis.",
+        error: "AI is not configured. Add GROQ_API_KEY to enable analysis.",
         result: null,
       };
     }
@@ -49,14 +50,14 @@ Rules:
 - Do not invent fake employers, dates, or credentials.
 - Return ONLY the tool call.`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: `Resume JSON:\n${JSON.stringify(data.resume, null, 2)}` },
