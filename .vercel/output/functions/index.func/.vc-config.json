@@ -1,6 +1,6 @@
 {
   "runtime": "nodejs20.x",
-  "handler": "index.mjs",
+  "handler": "server.js",
   "launcherType": "Nodejs",
   "supportsResponseStreaming": true
 }
