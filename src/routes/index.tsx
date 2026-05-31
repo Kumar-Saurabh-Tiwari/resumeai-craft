@@ -199,11 +199,11 @@ function Landing() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative"
+            className="relative mx-auto w-full max-w-[500px] lg:mx-0 lg:ml-auto"
           >
             <div className="absolute -inset-6 bg-gradient-brand opacity-20 blur-3xl rounded-full" />
-            <div className="relative rounded-2xl glass p-3 shadow-glow overflow-hidden">
-              <div className="origin-top scale-[0.62] -mb-32">
+            <div className="relative rounded-2xl glass p-4 sm:p-6 shadow-glow overflow-hidden flex justify-center h-[480px]">
+              <div className="origin-top scale-[0.45] sm:scale-[0.55] transition-transform">
                 <ResumePreview data={SAMPLE} id="hero-preview" />
               </div>
             </div>
