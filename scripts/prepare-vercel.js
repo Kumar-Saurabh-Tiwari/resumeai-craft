@@ -44,6 +44,12 @@ function copyDir(src, dest) {
 
 copyDir(serverDir, funcDir);
 
+// Include node_modules for runtime dependencies that are not bundled
+const nodeModulesDir = path.resolve("node_modules");
+if (fs.existsSync(nodeModulesDir)) {
+  copyDir(nodeModulesDir, path.join(funcDir, "node_modules"));
+}
+
 // Create .vc-config.json for the function
 fs.writeFileSync(
   path.join(funcDir, ".vc-config.json"),
