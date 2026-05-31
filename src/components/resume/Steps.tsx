@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useResumeStore, newId } from "@/lib/resume/store";
 import type { Education, Experience, Project } from "@/lib/resume/types";
 import { Input } from "@/components/ui/input";
@@ -191,6 +191,7 @@ export function SkillsStep() {
         <SkillEditor
           key={k}
           label={label}
+          categoryKey={k}
           values={s[k]}
           onChange={(vals) => patch("skills", { ...s, [k]: vals })}
         />
@@ -199,38 +200,87 @@ export function SkillsStep() {
   );
 }
 
+const SUGGESTIONS = {
+  technical: ["JavaScript", "TypeScript", "Python", "Java", "C++", "C#", "Ruby", "PHP", "Go", "Rust", "Swift", "Kotlin", "React", "Angular", "Vue.js", "Node.js", "Express.js", "Django", "Flask", "Spring Boot", "SQL", "MongoDB", "PostgreSQL", "MySQL", "Redis", "GraphQL", "REST API", "Docker", "Kubernetes", "AWS", "Azure", "GCP", "Machine Learning", "Data Analysis", "Artificial Intelligence", "HTML", "CSS", "SCSS", "Tailwind CSS", "Redux", "Next.js", "Svelte", "Microservices", "System Design", "DevOps", "CI/CD", "Agile", "Scrum"],
+  tools: ["Git", "GitHub", "GitLab", "Bitbucket", "Jira", "Trello", "Asana", "Slack", "Postman", "Figma", "Sketch", "Adobe XD", "Photoshop", "Illustrator", "Webpack", "Vite", "Babel", "npm", "Yarn", "Linux", "macOS", "Windows", "VS Code", "IntelliJ IDEA", "Eclipse", "WebStorm", "Android Studio", "Xcode", "Unity", "Unreal Engine", "Blender", "Jenkins", "Travis CI", "CircleCI", "Ansible", "Terraform", "Splunk", "Datadog"],
+  languages: ["English", "Spanish", "French", "German", "Mandarin", "Japanese", "Korean", "Hindi", "Portuguese", "Russian", "Arabic", "Italian", "Dutch", "Turkish", "Vietnamese", "Polish"],
+  soft: ["Communication", "Teamwork", "Problem Solving", "Critical Thinking", "Time Management", "Leadership", "Adaptability", "Work Ethic", "Creativity", "Conflict Resolution", "Empathy", "Attention to Detail", "Emotional Intelligence", "Mentoring", "Public Speaking", "Negotiation", "Decision Making", "Active Listening", "Stress Management", "Organization", "Interpersonal Skills"]
+};
+
 function SkillEditor({
   label,
+  categoryKey,
   values,
   onChange,
 }: {
   label: string;
+  categoryKey: keyof typeof SUGGESTIONS;
   values: string[];
   onChange: (v: string[]) => void;
 }) {
   const [input, setInput] = useState("");
-  const addTag = () => {
-    const v = input.trim();
-    if (!v) return;
-    onChange([...values, v]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  const addTag = (v?: string) => {
+    const val = (v !== undefined ? v : input).trim();
+    if (!val) return;
+    if (!values.includes(val)) {
+      onChange([...values, val]);
+    }
     setInput("");
+    setShowSuggestions(false);
   };
+
+  const filteredSuggestions = SUGGESTIONS[categoryKey].filter(s => 
+    s.toLowerCase().includes(input.toLowerCase()) && !values.includes(s)
+  ).slice(0, 10);
+
   return (
     <div className="space-y-2 rounded-xl border border-border bg-card p-4">
       <Label>{label}</Label>
-      <div className="flex gap-2">
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              addTag();
-            }
-          }}
-          placeholder="Type and press Enter"
-        />
-        <Button type="button" variant="soft" onClick={addTag}>
+      <div className="flex gap-2 relative" ref={containerRef}>
+        <div className="w-full relative">
+          <Input
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              setShowSuggestions(true);
+            }}
+            onFocus={() => setShowSuggestions(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addTag();
+              }
+            }}
+            placeholder="Type and press Enter"
+          />
+          {showSuggestions && input && filteredSuggestions.length > 0 && (
+            <div className="absolute z-10 w-full bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 max-h-60 overflow-auto">
+              {filteredSuggestions.map((s) => (
+                <div
+                  key={s}
+                  className="px-3 py-2 cursor-pointer hover:bg-accent hover:text-accent-foreground text-sm"
+                  onClick={() => addTag(s)}
+                >
+                  {s}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <Button type="button" variant="soft" onClick={() => addTag()}>
           Add
         </Button>
       </div>

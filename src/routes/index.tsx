@@ -180,20 +180,26 @@ function Landing() {
       <section className="relative overflow-hidden bg-hero-glow">
         <div className="container mx-auto px-4 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs text-muted-foreground mb-5">
-              <Sparkles className="h-3 w-3 text-primary" /> AI-powered • ATS-optimized • 2026 ready
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-              Build a <span className="text-gradient-brand">job-winning resume</span> in minutes
-              with AI
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, rotateX: -20 }}
+              animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+              transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary mb-5 backdrop-blur-md"
+            >
+              <Sparkles className="h-3 w-3" /> AI-Architected • ATS-Domination • 2026 Ready
+            </motion.div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter">
+              Engineered to get you hired. <br />
+              <span className="text-gradient-brand">Powered by AI.</span>
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground max-w-xl">
-              Create, optimize, and download professional resumes with AI-powered market analysis.
-              Live preview, ATS scoring, and PDF / DOCX export — all in one place.
+            <p className="mt-5 text-lg sm:text-xl text-muted-foreground max-w-xl">
+              Your career breakthrough starts here. Craft resumes that obliterate the ATS and
+              magnetize recruiters in minutes. Stop wrestling with Word, and start fielding
+              interview requests.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link to="/builder">
@@ -215,21 +221,23 @@ function Landing() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, scale: 0.8, rotateY: 15, rotateX: 10 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0, rotateX: 0 }}
+            transition={{ duration: 1, delay: 0.2, type: "spring", bounce: 0.3 }}
+            whileHover={{ scale: 1.03, rotateY: -8, rotateX: 5 }}
+            style={{ perspective: 1200 }}
             className="relative mx-auto w-full max-w-[500px] lg:mx-0 lg:ml-auto"
           >
-            <div className="absolute -inset-6 bg-gradient-brand opacity-20 blur-3xl rounded-full" />
-            <div className="relative rounded-2xl glass p-4 sm:p-6 shadow-glow overflow-hidden flex justify-center h-[480px]">
+            <div className="absolute -inset-10 bg-gradient-brand opacity-30 blur-[80px] rounded-full animate-pulse" />
+            <div className="relative rounded-2xl glass p-4 sm:p-6 shadow-[0_0_50px_rgba(99,102,241,0.2)] border border-primary/20 overflow-hidden flex justify-center h-[480px]">
               <div className="origin-top scale-[0.45] sm:scale-[0.55] transition-transform">
                 <ResumePreview data={SAMPLE} id="hero-preview" />
               </div>
             </div>
             <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -right-2 sm:right-4 top-10 glass rounded-xl px-3 py-2 text-xs shadow-soft"
+              animate={{ y: [0, -12, 0], scale: [1, 1.05, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -right-2 sm:right-4 top-10 glass border border-primary/20 rounded-xl px-3 py-2 text-xs shadow-[0_0_20px_rgba(99,102,241,0.3)] backdrop-blur-xl"
             >
               <div className="flex items-center gap-2">
                 <div className="h-7 w-7 rounded-md bg-gradient-brand grid place-items-center text-brand-foreground">
@@ -253,17 +261,24 @@ function Landing() {
           sub="Built for jobseekers who want to look senior, ship fast, and pass every ATS."
         />
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
-              whileHover={{ y: -3 }}
-              className="rounded-xl border border-border bg-card p-5 shadow-soft transition-all hover:shadow-glow"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group rounded-xl border border-border bg-card p-5 shadow-soft transition-all hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] hover:border-primary/30 relative overflow-hidden"
             >
-              <div className="h-10 w-10 rounded-lg bg-gradient-brand grid place-items-center text-brand-foreground mb-3">
-                <f.icon className="h-5 w-5" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative z-10">
+                <div className="h-10 w-10 rounded-lg bg-gradient-brand grid place-items-center text-brand-foreground mb-3 shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+                  <f.icon className="h-5 w-5" />
+                </div>
+                <h3 className="font-semibold">{f.title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{f.desc}</p>
               </div>
-              <h3 className="font-semibold">{f.title}</h3>
-              <p className="text-sm text-muted-foreground mt-1">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -275,18 +290,25 @@ function Landing() {
           <SectionHeader
             eyebrow="How it works"
             title="From blank page to ATS-ready in 6 steps"
-            sub=""
+            sub="No complicated menus. Just a straightforward wizard that lets you focus on content while we handle the formatting."
           />
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {STEPS.map((s, i) => (
-              <div key={s} className="rounded-xl glass p-5 flex gap-4">
+              <motion.div
+                key={s}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="rounded-xl glass p-5 flex gap-4 transition-all hover:bg-card hover:shadow-soft"
+              >
                 <div className="h-9 w-9 shrink-0 rounded-full bg-gradient-brand text-brand-foreground grid place-items-center font-bold">
                   {i + 1}
                 </div>
                 <div className="pt-1">
                   <div className="font-medium">{s}</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -296,11 +318,19 @@ function Landing() {
       <section className="container mx-auto px-4 py-20">
         <SectionHeader eyebrow="Loved by jobseekers" title="Hired in days, not months" sub="" />
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {TESTIMONIALS.map((t) => (
-            <div key={t.name} className="rounded-xl border border-border bg-card p-5 shadow-soft">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              className="rounded-xl border border-border bg-card p-5 shadow-soft transition-all hover:shadow-glow"
+            >
               <div className="flex gap-0.5 text-primary mb-3">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
+                {Array.from({ length: 5 }).map((_, idx) => (
+                  <Star key={idx} className="h-4 w-4 fill-current" />
                 ))}
               </div>
               <p className="text-sm">"{t.quote}"</p>
@@ -308,7 +338,7 @@ function Landing() {
                 <div className="font-semibold">{t.name}</div>
                 <div className="text-muted-foreground">{t.role}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -360,25 +390,48 @@ function Landing() {
 
       {/* CTA */}
       <section className="container mx-auto px-4 pb-24">
-        <div className="rounded-3xl bg-gradient-brand p-10 sm:p-16 text-center text-brand-foreground shadow-glow relative overflow-hidden">
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">
-            Ready to land your dream job?
-          </h2>
-          <p className="mt-3 max-w-xl mx-auto opacity-90">
-            Build a resume recruiters actually want to read. Free to start, no credit card required.
-          </p>
-          <div className="mt-7">
-            <Link to="/builder">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Build Resume Now <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, type: "spring", bounce: 0.3 }}
+          className="rounded-3xl bg-gradient-brand p-10 sm:p-16 text-center text-brand-foreground shadow-[0_0_80px_rgba(99,102,241,0.5)] relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+          <div className="relative z-10">
+            <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tighter">
+              Your Next Big Offer is Waiting.
+            </h2>
+            <p className="mt-4 text-lg sm:text-xl max-w-xl mx-auto opacity-90 font-medium">
+              Don't let a poorly formatted document stand between you and your dream salary. Build
+              your AI-optimized resume in under 5 minutes.
+            </p>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-10 inline-block"
+            >
+              <Link to="/builder">
+                <Button
+                  size="lg"
+                  className="bg-white text-primary hover:bg-white/90 shadow-xl px-10 h-14 text-lg"
+                >
+                  Launch Your Career <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        © 2026 ResumeAI Pro. Built with care.
+        <p>© 2026 ResumeAI Pro. Built with care.</p>
+        <p className="mt-2">
+          Developed by Saurabh Kumar Tiwari •{" "}
+          <a href="mailto:hello@skumar.space" className="text-primary hover:underline">
+            hello@skumar.space
+          </a>
+        </p>
       </footer>
     </div>
   );

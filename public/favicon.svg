@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="20" y="10" width="60" height="80" rx="4" fill="#ffffff" stroke="#333333" stroke-width="4"/>
+  <line x1="30" y1="25" x2="70" y2="25" stroke="#333333" stroke-width="4" stroke-linecap="round"/>
+  <line x1="30" y1="40" x2="70" y2="40" stroke="#333333" stroke-width="4" stroke-linecap="round"/>
+  <line x1="30" y1="55" x2="55" y2="55" stroke="#333333" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Sparkle (AI) -->
+  <path d="M80 60 L85 70 L95 75 L85 80 L80 90 L75 80 L65 75 L75 70 Z" fill="#6366f1"/>
+  <path d="M70 50 L72 55 L77 57 L72 59 L70 64 L68 59 L63 57 L68 55 Z" fill="#6366f1"/>
+</svg>
