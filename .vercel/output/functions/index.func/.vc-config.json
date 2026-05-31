@@ -1,6 +1,0 @@
-{
-  "runtime": "nodejs20.x",
-  "handler": "server.js",
-  "launcherType": "Nodejs",
-  "supportsResponseStreaming": true
-}
