@@ -6,7 +6,8 @@ import {
   HeadingLevel,
   AlignmentType,
 } from "docx";
-import { saveAs } from "file-saver";
+import FileSaver from "file-saver";
+const { saveAs } = FileSaver;
 import type { ResumeData } from "../resume/types";
 
 export async function exportDocx(r: ResumeData) {
