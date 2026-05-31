@@ -25,8 +25,8 @@ if (!fs.existsSync(serverDir)) {
   process.exit(1);
 }
 
-// We copy dist/server/* directly into the function root, so the handler is always index.mjs
-const handlerName = "index.mjs";
+// We copy dist/server/* directly into the function root, so the handler matches server output.
+const handlerName = "server.js";
 
 // Copy server files to the function directory
 function copyDir(src, dest) {
