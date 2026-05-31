@@ -21,7 +21,7 @@ fs.mkdirSync(funcDir, { recursive: true });
 
 // Read nitro.json to get the server entry
 const nitroJson = JSON.parse(fs.readFileSync(path.join(distDir, "nitro.json"), "utf8"));
-const serverEntry = nitroJson.entry || "index.mjs";
+const serverEntry = nitroJson.serverEntry || "index.mjs";
 
 // Copy server files to the function directory
 function copyDir(src, dest) {
