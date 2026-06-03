@@ -13,4 +13,4 @@ One-Click Export: Download clean, ATS-friendly resumes instantly as a PDF.
 Tech Stack
 Frontend: HTML5, CSS3, JavaScript
 
-AI Engine: OpenAI / Gemini API for intelligent text analysis and tailoring.
+AI Engine: OpenAI / GROQ API for intelligent text analysis and tailoring.
